@@ -10,7 +10,7 @@ public class SmartCityUtilityControl {
         while (true){
             //Main menu
             System.out.println("----------------------------------------------");
-            System.out.println("Main menu");
+            System.out.println("MAIN MENU");
             System.out.println("1. Electricity Service");
             System.out.println("2. Water Service");
             System.out.println("3. Internet Service");
@@ -31,7 +31,7 @@ public class SmartCityUtilityControl {
                     break;
                 }
                 case 4:{
-                    System.out.println("Exiting the system.");
+                    System.out.println("EXITING THE SYSTEM.");
                     return;
                 }
                 default:
@@ -43,7 +43,7 @@ public class SmartCityUtilityControl {
     public static void electricityService(){
         System.out.println("----------------------------------------------");
         System.out.println("Welcome to Electricity Service");
-        System.out.println("Sub menu: ");
+        System.out.println("SUB MENU");
         System.out.println("1. Domestic Connection");
         System.out.println("2. Commercial Connection");
         System.out.println("3. Industrial Connection");
@@ -73,11 +73,12 @@ public class SmartCityUtilityControl {
                     return;
                 }
                 totalBill = bill+fixedCharge;
+                //adding surcharge
                 if(bill>billLimit){
                     surchage = (surchage/100)*totalBill;
                     totalBill += surchage;
                 }
-                displayElectricityBill(connectionType, units, bill, fixedCharge, bill>billLimit?surchage:0, totalBill);
+                displayElectricityBill(connectionType, units, bill, fixedCharge, bill>billLimit?surchage:0, totalBill); //if bill doesnt exceed limit then pass surcharge as 0
                 break;
             }
             case 2:{
@@ -108,7 +109,7 @@ public class SmartCityUtilityControl {
                 connectionType = "Industrial";
                 fixedCharge = 500;
                 double rebate = 15;  //15% rebate
-                int unitLimit = 1000;   //limit for rebate
+                int unitLimit = 1000;   //lower limit for rebate
                 unitCharge = 12;
                 bill += unitCharge*units;
                 if(units<0){
@@ -116,11 +117,12 @@ public class SmartCityUtilityControl {
                     return;
                 }
                 totalBill = bill+fixedCharge;
+                //apply rebate if units exceeds unit limit
                 if(units>unitLimit){
                     rebate = (rebate/100)*totalBill;
                     totalBill -= rebate;
                 }
-                displayElectricityBill(connectionType, units, bill, fixedCharge, units>unitLimit?rebate:0, totalBill);
+                displayElectricityBill(connectionType, units, bill, fixedCharge, units>unitLimit?rebate:0, totalBill); //pass 0 as rebate to display function for units under limit
                 break;
             }
             case 4:{
@@ -129,7 +131,6 @@ public class SmartCityUtilityControl {
             }
             default:
                 System.out.println("Enter valid menu number. Returning to sub menu.");
-                electricityService();
         }
     }
     public static void displayElectricityBill(String connectionType,
@@ -151,7 +152,7 @@ public class SmartCityUtilityControl {
     public static void waterService(){
         System.out.println("----------------------------------------------");
         System.out.println("Welcome to Water Service");
-        System.out.println("Sub menu");
+        System.out.println("SUB MENU");
         System.out.println("1. Residential");
         System.out.println("2. Society");
         System.out.println("3. Factory");
@@ -172,10 +173,12 @@ public class SmartCityUtilityControl {
                 bill = rate*personCount;
                 totalBill = bill;
                 tax = 8;
+                //adds tax to total bill for high bill value
                 if(bill> billLimit){
                     tax = (tax/100)*bill;
                     totalBill += tax;
                 }
+                //if no tax then pass 0 to display method
                 displayWaterBill(connectionType,personCount,bill,bill>billLimit?tax:0, totalBill);
                 break;
             }
@@ -243,7 +246,7 @@ public class SmartCityUtilityControl {
     public static void internetService(){
         System.out.println("----------------------------------------------");
         System.out.println("Welcome to Internet Service");
-        System.out.println("Sub menu");
+        System.out.println("SUB MENU");
         System.out.println("1. Student plan");
         System.out.println("2. Home plan");
         System.out.println("3. Business Plan");
@@ -260,6 +263,7 @@ public class SmartCityUtilityControl {
                 } else if (duration == 3) {
                     rate = 799;
                 } else if (duration == 6){
+                    System.out.println("Eligible for 5% OFF!");
                     rate = 1499;
                     rate -= (discount/100)*rate;
                 }else {
@@ -279,6 +283,7 @@ public class SmartCityUtilityControl {
                 } else if (duration == 3) {
                     rate = 1399;
                 } else if (duration == 6){
+                    System.out.println("Eligible for 5% OFF!");
                     rate = 2699;
                     rate-= (discount/100)*rate;
                 }else {
@@ -298,6 +303,7 @@ public class SmartCityUtilityControl {
                 } else if (duration == 3) {
                     rate = 2799;
                 } else if (duration == 6){
+                    System.out.println("Eligible for 5% OFF!");
                     rate = 5499;
                     rate-= (discount/100)*rate;
                 }else {
